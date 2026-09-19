@@ -182,6 +182,24 @@
     transition:opacity 2.4s ease, transform 2.4s ease;
     filter:drop-shadow(0 0 10px rgba(230,184,214,0.55));
   }
+
+  .memory-photo{
+    width:64%;
+    max-width:240px;
+    border-radius:18px;
+    margin-bottom:2.2rem;
+    box-shadow:0 0 34px rgba(201,166,255,0.28), 0 8px 30px rgba(0,0,0,0.5);
+    border:1px solid rgba(201,166,255,0.25);
+    opacity:0;
+    transform:translateY(12px) scale(0.97);
+    transition:opacity 2s ease, transform 2s ease;
+    object-fit:cover;
+    aspect-ratio:4/5;
+  }
+  .memory-photo.in{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
   .heart.in{
     opacity:1;
     transform:scale(1);
@@ -312,10 +330,10 @@
   <span id="trackLabel">our song</span>
   <audio id="audio" loop preload="none">
     <!-- Add a licensed / your own audio file here, e.g.: -->
-    <source src="song.mp3" type="audio/mpeg">
+    <!-- <source src="song.mp3" type="audio/mpeg"> -->
   </audio>
 </div>
-<img src="us.jpg" alt="us" style="width:70%;max-width:260px;border-radius:16px;margin-bottom:2rem;box-shadow:0 0 30px rgba(201,166,255,0.25);opacity:0;transform:translateY(10px);transition:opacity 2s ease, transform 2s ease;" class="closing-line" id="memoryPhoto">
+
 <div class="stage">
 
   <section id="opening" class="screen active">
@@ -326,6 +344,8 @@
   </section>
 
   <section id="closing" class="screen">
+    <img class="memory-photo" id="memoryPhoto" src="us.jpg" alt=""
+         onerror="this.style.display='none'; document.getElementById('heartIcon').style.marginTop='0';">
     <svg class="heart" id="heartIcon" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M16 28.2S1.5 19.3 1.5 9.9C1.5 4.9 5.4 1 10.2 1c3 0 5.1 1.6 5.8 3.4C16.7 2.6 18.8 1 21.8 1c4.8 0 8.7 3.9 8.7 8.9 0 9.4-14.5 18.3-14.5 18.3Z" fill="var(--heart)" opacity="0.9"/>
     </svg>
@@ -449,11 +469,13 @@
       closing.classList.add('active');
       player.classList.add('in');
       var heart = document.getElementById('heartIcon');
+      var photo = document.getElementById('memoryPhoto');
       var lines = closing.querySelectorAll('.closing-line');
-      setTimeout(function(){ heart.classList.add('in'); }, 300);
-      var delays = [1400, 2400, 3800, 5000];
+      setTimeout(function(){ photo.classList.add('in'); }, 300);
+      setTimeout(function(){ heart.classList.add('in'); }, 900);
+      var delays = [2000, 3000, 4400, 5600];
       lines.forEach(function(line, idx){
-        setTimeout(function(){ line.classList.add('in'); }, delays[idx] || (1400 + idx*1100));
+        setTimeout(function(){ line.classList.add('in'); }, delays[idx] || (2000 + idx*1100));
       });
     }, 950);
   }, {once:true});
@@ -490,4 +512,3 @@
 
 </body>
 </html>
-
